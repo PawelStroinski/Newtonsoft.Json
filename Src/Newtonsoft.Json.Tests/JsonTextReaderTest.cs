@@ -3215,6 +3215,21 @@ null//comment
             var cloneOfCloneOfClone = cloneOfClone.Clone();
             Assert.IsFalse(cloneOfCloneOfClone.Read());
         }
+
+        [Test]
+        public void RemainingBufferedCharacters()
+        {
+            string json = "{\r\n}";
+
+            var streamReader = new StreamReader(new MemoryStream(Encoding.Unicode.GetBytes(json)), Encoding.Unicode);
+            JsonTextReader reader = new JsonTextReader(streamReader, grabDelimiters: true);
+
+            Assert.AreEqual(0, reader.RemainingBufferedCharacters);
+            Assert.IsTrue(reader.Read());
+            Assert.AreEqual(3, reader.RemainingBufferedCharacters);
+            Assert.IsTrue(reader.Read());
+            Assert.AreEqual(0, reader.RemainingBufferedCharacters);
+        }
     }
 
     public class ToggleReaderError : TextReader

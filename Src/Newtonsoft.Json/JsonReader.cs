@@ -1035,6 +1035,14 @@ namespace Newtonsoft.Json
         }
 
         /// <summary>
+        /// Gets the number of characters in internal reading buffer which were not yet been parsed.
+        /// </summary>
+        public virtual int RemainingBufferedCharacters
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        /// <summary>
         /// Clones the reader. Cloning can be used to return to parsing position at time when clone was created
         /// given that source stream is in same position/buffer as when clone was created.
         /// </summary>
